@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ae Lươn — Huế · Đà Nẵng 30/4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink: #111110;
+  --paper: #f9f7f4;
+  --warm: #f0ede8;
+  --line: #dbd8d2;
+  --muted: #999590;
+  --accent: #c0522a;
+  --accent-pale: #f5ede8;
+  --sans: 'DM Sans', sans-serif;
+  --serif: 'DM Serif Display', serif;
+}
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  background: var(--paper);
+  color: var(--ink);
+  font-weight: 300;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── HEADER ─── */
+header {
+  padding: 5rem 2rem 4rem;
+  max-width: 640px;
+  margin: 0 auto;
+  opacity: 0;
+  animation: rise 0.7s ease forwards;
+}
+
+.group-name {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+
+h1 {
+  font-family: var(--serif);
+  font-size: clamp(2.6rem, 6vw, 3.8rem);
+  line-height: 1.1;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 1rem;
+}
+
+h1 em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.header-meta {
+  font-size: 14px;
+  color: var(--muted);
+  font-weight: 400;
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.header-meta span::before {
+  content: '·';
+  margin-right: 1.5rem;
+}
+.header-meta span:first-child::before { content: none; }
+
+/* ─── BUDGET ─── */
+.budget-section {
+  max-width: 640px;
+  margin: 0 auto 3.5rem;
+  padding: 0 2rem;
+  opacity: 0;
+  animation: rise 0.7s 0.1s ease forwards;
+}
+
+.budget-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+
+.budget-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.budget-cell {
+  background: var(--paper);
+  padding: 14px 16px;
+}
+
+.budget-cell .b-label {
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 4px;
+  font-weight: 400;
+}
+
+.budget-cell .b-val {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.budget-cell.total {
+  background: var(--ink);
+}
+
+.budget-cell.total .b-label { color: rgba(249,247,244,0.5); }
+.budget-cell.total .b-val { color: var(--paper); }
+
+@media (max-width: 480px) {
+  .budget-row { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ─── MAIN ─── */
+main {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 2rem 6rem;
+}
+
+/* ─── DAY ─── */
+.day {
+  margin-bottom: 4rem;
+  opacity: 0;
+  animation: rise 0.6s ease forwards;
+}
+
+.day:nth-child(1) { animation-delay: 0.15s; }
+.day:nth-child(2) { animation-delay: 0.2s; }
+.day:nth-child(3) { animation-delay: 0.25s; }
+.day:nth-child(4) { animation-delay: 0.3s; }
+.day:nth-child(5) { animation-delay: 0.35s; }
+
+.day-rule {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--ink);
+}
+
+.day-date {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  line-height: 1;
+  font-weight: 400;
+}
+
+.day-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.day-tag {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+}
+
+.day-tag.hue { border-color: var(--accent); color: var(--accent); }
+.day-tag.danang { border-color: #2a6090; color: #2a6090; }
+.day-tag.fly { border-color: #3a7a58; color: #3a7a58; }
+
+/* ─── EVENTS ─── */
+.events { display: flex; flex-direction: column; gap: 1px; }
+
+.event {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  transition: border-color 0.15s;
+  overflow: hidden;
+}
+
+.event:hover { border-color: #c4bdb5; }
+
+.event-trigger {
+  display: grid;
+  grid-template-columns: 52px 1fr auto;
+  align-items: start;
+  gap: 1rem;
+  padding: 14px 16px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.e-time {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+  padding-top: 1px;
+  font-variant-numeric: tabular-nums;
+}
+
+.e-body {}
+
+.e-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.4;
+  margin-bottom: 5px;
+}
+
+.e-tags { display: flex; gap: 5px; flex-wrap: wrap; }
+
+.tag {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border: 1px solid;
+}
+
+.tag-f { border-color: #e8c4b0; color: #a04020; background: var(--accent-pale); }
+.tag-a { border-color: #b8d8c0; color: #2a6040; background: #eef6f1; }
+.tag-m { border-color: #c8c0d8; color: #4a3880; background: #f2f0f8; }
+.tag-s { border-color: var(--line); color: var(--muted); background: var(--warm); }
+.tag-v { border-color: #b8d0e8; color: #1e4e78; background: #edf4fb; }
+
+.e-chevron {
+  font-size: 12px;
+  color: var(--muted);
+  transition: transform 0.2s;
+  padding-top: 2px;
+  line-height: 1;
+}
+
+.event.open .e-chevron { transform: rotate(180deg); }
+
+/* ─── DETAIL ─── */
+.event-detail {
+  display: none;
+  padding: 0 16px 16px 68px;
+  border-top: 1px solid var(--line);
+  margin: 0 -1px;
+}
+
+@media (max-width: 480px) {
+  .event-detail { padding-left: 16px; }
+}
+
+.event.open .event-detail { display: block; padding-top: 14px; }
+
+.d-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 9px;
+  font-size: 13px;
+  align-items: flex-start;
+  line-height: 1.55;
+}
+
+.d-icon { flex-shrink: 0; width: 16px; font-size: 13px; margin-top: 1px; }
+
+.d-text { color: var(--ink); font-weight: 300; }
+
+.d-text strong { font-weight: 500; }
+
+.alt {
+  margin: 8px 0;
+  padding: 10px 14px;
+  background: var(--warm);
+  border-left: 2px solid var(--line);
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.alt strong { color: var(--ink); font-weight: 500; }
+
+.price {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink);
+  background: var(--warm);
+  padding: 2px 9px;
+  margin-right: 4px;
+  font-variant-numeric: tabular-nums;
+}
+
+.map-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 400;
+  color: #2a6090;
+  text-decoration: none;
+  border-bottom: 1px solid #b8d0e8;
+  margin-top: 6px;
+  margin-right: 12px;
+  padding-bottom: 1px;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.map-link:hover { color: #1a4070; border-color: #1a4070; }
+
+/* ─── FOOTER ─── */
+footer {
+  border-top: 1px solid var(--line);
+  padding: 2rem;
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+/* ─── ANIMATION ─── */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <p class="group-name">Ae Lươn · 5 người</p>
+  <h1>Huế –<br><em>Đà Nẵng</em></h1>
+  <div class="header-meta">
+    <span>29/4 → 3/5/2025</span>
+    <span>2–3tr / người</span>
+    <span>Huế 2 đêm · Đà Nẵng 1 đêm</span>
+  </div>
+</header>
+
+<div class="budget-section">
+  <div class="budget-label">Ước tính chi phí / người</div>
+  <div class="budget-row">
+    <div class="budget-cell">
+      <div class="b-label">Ăn uống</div>
+      <div class="b-val">600–900k</div>
+    </div>
+    <div class="budget-cell">
+      <div class="b-label">Vé di tích</div>
+      <div class="b-val">350–450k</div>
+    </div>
+    <div class="budget-cell">
+      <div class="b-label">Xe + xăng</div>
+      <div class="b-val">300–400k</div>
+    </div>
+    <div class="budget-cell total">
+      <div class="b-label">Tổng ước tính</div>
+      <div class="b-val">1.5–2.1tr</div>
+    </div>
+  </div>
+</div>
+
+<main>
+
+  <!-- 29/4 -->
+  <section class="day">
+    <div class="day-rule">
+      <div class="day-date">29/4</div>
+      <div class="day-subtitle">Xuất phát Hà Nội</div>
+      <span class="day-tag">Di chuyển</span>
+    </div>
+    <div class="events">
+
+      <div class="event" onclick="toggle(this)">
+        <div class="event-trigger">
+          <div class="e-time">18:00</div>
+          <div class="e-body">
+            <div class="e-name">Xe khách giường nằm — 459 Trần Khát Chân</div>
+            <div class="e-tags"><span class="tag tag-m">Di chuyển</span></div>
+          </div>
+          <div class="e-chevron">▾</div>
+        </div>
+        <div class="event-detail">
+          <div class="d-row"><span class="d-icon">📍</span><span class="d-text">Điểm đón: 459 Trần Khát Chân, Hà Nội<br>Điểm đến: 86 Nguyễn Sinh Cung, Huế — đến ~5–6h sáng</span></div>
+          <div class="d-row"><span class="d-icon">💡</span><span class="d-text">Đặt vé sớm, dịp 30/4 xe nhanh hết. Mang tai nghe, mắt ngủ.</span></div>
+          <div class="d-row"><span class="d-icon">💰</span><span class="d-text"><span class="price">~250–350k</span>/người</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 30/4 -->
+  <section class="day">
+    <div class="day-rule">
+      <div class="day-date">30/4</div>
+      <div class="day-subtitle">Đến Huế — check-in & khám phá</div>
+      <span class="day-tag hue">Huế</span>
+    </div>
+    <div class="events">
+
+      <div class="event" onclick="toggle(this)">
+        <div class="event-trigger">
+          <div class="e-time">5:30</div>
+          <div class="e-body">
+            <div class="e-name">Đến Huế — nhận phòng Gaki Hotel</div>
+            <div class="e-tags"><span class="tag tag-s">Check-in</span></div>
+          </div>
+          <div class="e-chevron">▾</div>
+        </div>
+        <div class="event-detail">
+          <div class="d-row"><span class="d-icon">📍</span><span class="d-text">Gaki Hotel — 21 Tôn Đức Thắng, Huế</span></div>
+          <div class="d-row"><span class="d-icon">💡</span><span class="d-text">Grab từ bến xe về khách sạn ~20–30k. Chưa nhận phòng được thì gửi hành lý, đi ăn sáng trước.</span></div>
+          <a class="map-link" href="https://maps.google.com/?q=21+Ton+Duc+Thang+Hue" target="_blank">↗ Google Maps</a>
+        </div>
+      </div>
+
+      <div class="event" onclick="toggle(this)">
+        <div class="event-trigger">
+          <div class="e-time">7:00</div>
+          <div class="e-body">
+            <div class="e-name">Ăn sáng — Bún bò Huế</div>
+            <div class="e-tags"><span class="tag tag-f">Ăn sáng</span><span class="tag tag-f">Đặc sản</span></div>
+          </div>
+          <div class="e-chevron">▾</div>
+        </div>
+        <div class="event-detail">
+          <div class="d-row"><span class="d-icon">🥣</span><span class="d-text"><strong>Option 1 —</strong> Bún bò O Xuân, 17 Lý Thường Kiệt. Quán lâu năm, nước dùng đậm vị, giò heo to.</span></div>
+          <a class="map-link" href="https://maps.google.com/?q=Bun+bo+O+Xuan+Hue" target="_blank">↗ Maps</a>
+          <div class="alt"><strong>Option 2 —</strong> Bún bò Mụ Rớt, 26 Phạm Hồng Thái. Rất đông buổi sáng, nên đến trước 7h.</div>
+          <a class="map-link" href="https://maps.google.com/?q=Bun+bo+Mu+Rot+Hue" target="_blank">↗ Maps</a>
+          <div class="d-row"><span class="d-icon">💰</span><span class="d-text"><span class="price">~40–60k</span>/người</span></div>
+        </div>
+      </div>
+
+      <div class="event" onclick="toggle(this)">
+        <div class="event-trigger">
+          <div class="e-time">9:00</div>
+          <div class="e-body">
+            <div class="e-name">Thuê xe máy — thăm Đại Nội Huế</div>
+            <div class="e-tags"><span class="tag tag-v">Di tích</span><span class="tag tag-m">Thuê xe</span></div>
+          </div>
+          <div class="e-chevron">▾</div>
+        </div>
+        <div class="event-detail">
+          <div class="d-row"><span class="d-icon">🛵</span><span class="d-text">Thuê xe máy gần khách sạn ~120–150k/xe/ngày. 5 người thuê 3 xe là đủ.</span></div>
+          <div class="d-row"><span class="d-icon">🏯</span><span class="d-text">Đại Nội — di tích đẹp nhất Huế, đi ~1.5–2 tiếng. Nên mặc áo kín vai khi vào.</span></div>
+          <div class="d-row"><span class="d-icon">⚠️</span><span class="d-text">Dịp lễ rất đông, nên đến trước 9h để thoáng hơn.</span></div>
+          <div class="d-row"><span class="d-icon">💰</span><span class="d-text"><span class="price">150k</span>vé · <span class="price">~130k</span>xe/ngày</span></div>
+          <a class="map-link" href="https://maps.google.com/?q=Dai+Noi+Hue" target="_blank">↗ Google Maps</a>
+        </div>
+      </div>
+
+      <div class="event" onclick="toggle(this)">
+        <div class="event-trigger">
+          <div class="e-time">12:00</div>
+          <div class="e-body">
+            <div class="e-name">Ăn trưa — Cơm hến / Bánh canh Nam Phổ</div>
+            <div class="e-tags"><span class="tag tag-f">Ăn trưa</span></div>
+          </div>
+          <div class="e-chevron">▾</div>
+        </div>
+        <div class="event-detail">
+          <div class="d-row"><span class="d-icon">🍚</span><span class="d-text"><strong>Option 1 —</strong> Cơm hến Cồn Hến, đảo nhỏ giữa sông Hương. Ngồi ăn view sông, rất đặc sản.</span></div>
+          <a class="map-link" href="https://maps.google.com/?q=Con+Hen+Hue" target="_blank">↗ Maps</a>
+          <div class="alt"><strong>Option 2 —</strong> Bánh canh Nam Phổ trên đường Nguyễn Bỉnh Khiêm. Bánh canh cua ghẹ đặc trưng Huế.</div>
+          <div class="d-row"><span class="d-icon">💰</span><span class="d-text"><span class="price">~40–60k</span>/người</span></div>
+        </div>
+      </div>
+
+      <div class="event" onclick="toggle(this)">
+        <div class="event-trigger">
+          <div class="e-time">14:30</div>
+          <div class="e-body">
+            <div class="e-name">Chèo SUP — Biển Thuận An</div>
+            <div class="e-tags"><span class="tag tag-a">Hoạt động</span><span class="tag tag-a">Biển</span></div>
+          </div>
+          <div class="e-chevron">▾</div>
+        </div>
+        <div class="event-detail">
+          <div class="d-row"><span class="d-icon">🏄</span><span class="d-text">Biển Thuận An cách trung tâm ~15km. Nhiều điểm cho thuê SUP, kayak dọc bờ.</span></div>
+          <div class="d-row"><span class="d-icon">💡</span><span class="d-text">Thuê SUP ~100–150k/giờ/ván. Hỏi giá và mặc cả cả nhóm. Mang kem chống nắng.</span></div>
+          <div class="d-row"><span class="d-icon">⚠️</span><span class="d-text">Dịp lễ sóng có thể lớn hơn bình thường, chú ý an toàn.</span></div>
+          <div class="d-row"><span class="d-icon">💰</span><span class="d-text"><span class="price">~100–200k</span>/người</span></div>
+          <a class="map-link" href="https://maps.google.com/?q=Bien+Thuan+An+Hue" target="_blank">↗ Google Maps</a>
+        </div>
+      </div>
+
+      <div class="event" onclick="toggle(this)">
+        <div class="event-trigger">
+          <div class="e-time">19:00</div>
+          <div class="e-body">
+            <div class="e-name">Nhậu tối — Hải sản Thuận An / Chợ đêm Đông Ba</div>
+            <div class="e-tags"><span class="tag tag-f">Ăn tối</span><span class="tag tag-a">Nhậu</span></div>
+          </div>
+          <div class="e-chevron">▾</div>
+        </div>
+        <div class="event-detail">
+          <div class="d-row"><span class="d-icon">🍺</span><span class="d-text"><strong>Option 1 —</strong> Nhậu hải sản tại biển Thuận An. Quán dọc bờ, hải sản tươi, giá hợp lý, tiện về luôn.</span></div>
+          <div class="alt"><strong>Option 2 —</strong> Về trung tâm khu chợ đêm Đông Ba hoặc quán nhậu đường Chu Văn An. Đông vui hơn dịp lễ.</div>
+          <a class="map-link" href="https://maps.google.com/?q=Cho+dem+Dong+Ba+Hue" target="_blank">↗ Google Maps</a>
+          <div class="d-row"><span class="d-icon">💰</span><span class="d-text"><span class="price">~150–250k</span>/người</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 1/5 -->
+  <section class="day">
+    <div class="day-rule">
+      <div class="day-date">1/5</div>
+      <div class="day-subtitle">Di tích & đặc sản Huế</div>
+      <span class="day-tag hue">Huế</span>
+    </div>
+    <div class="events">
+
+      <div class="event" onclick="toggle(this)">
+        <div class="event-trigger">
+          <div class="e-time">7:30</div>
+          <div class="e-body">
+            <div class="e-name">Ăn sáng — Bánh khoái / Bánh mì Huế</div>
+            <div class="e-tags"><span class="tag tag-f">Ăn sáng</span><span class="tag tag-f">Đặc sản</span></div>
+          </div>
+          <div class="e-chevron">▾</div>
+        </div>
+        <div class="event-detail">
+          <div class="d-row"><span class="d-icon">🥞</span><span class="d-text"><strong>Option 1 —</strong> Bánh khoái Lạc Thiện, Lê Lợi. Bánh khoái + nem lui — đặc sản không thể bỏ.</span></div>
+          <a class="map-link" href="https://maps.google.com/?q=Banh+khoai+Lac+Thien+Hue" target="_blank">↗ Maps</a>
+          <div class="alt"><strong>Option 2 —</strong> Bánh mì thịt nướng kiểu Huế gần chợ Đông Ba. 20–25k/ổ, ăn no.</div>
+          <div class="d-row"><span class="d-icon">💰</span><span class="d-text"><span class="price">~30–60k</span>/người</span></div>
+        </div>
+      </div>
+
+      <div class="event" onclick="toggle(this)">
+        <div class="event-trigger">
+          <div class="e-time">9:30</div>
+          <div class="e-body">
+            <div class="e-name">Lăng Tự Đức + Lăng Khải Định</div>
+            <div class="e-tags"><span class="tag tag-v">Di tích</span></div>
+          </div>
+          <div class="e-chevron">▾</div>
+        </div>
+        <div class="event-detail">
+          <div class="d-row"><span class="d-icon">🏛</span><span class="d-text"><strong>Lăng Tự Đức</strong> — Đẹp nhất về kiến trúc, hồ bán nguyệt thơ mộng. Đi ~1 tiếng.</span></div>
+          <a class="map-link" href="https://maps.google.com/?q=Lang+Tu+Duc+Hue" target="_blank">↗ Maps</a>
+          <div class="d-row"><span class="d-icon">🏛</span><span class="d-text"><strong>Lăng Khải Định</strong> — Phong cách Âu–Á độc đáo, ảnh rất đẹp. Đi ~45 phút.</span></div>
+          <a class="map-link" href="https://maps.google.com/?q=Lang+Khai+Dinh+Hue" target="_blank">↗ Maps</a>
+          <div class="d-row"><span class="d-icon">💡</span><span class="d-text">Hai lăng cách nhau ~5km. Đi sáng sớm tránh nắng và đông.</span></div>
+          <div class="d-row"><span class="d-icon">💰</span><span class="d-text"><span class="price">100k</span>Tự Đức · <span class="price">100k</span>Khải Định</span></div>
+        </div>
+      </div>
+
+      <div class="event" onclick="toggle(this)">
+        <div class="event-trigger">
+          <div class="e-time">12:30</div>
+          <div class="e-body">
+            <div class="e-name">Ăn trưa — Bánh canh cá lóc / Bún thịt nướng</div>
+            <div class="e-tags"><span class="tag tag-f">Ăn trưa</span></div>
+          </div>
+          <div class="e-chevron">▾</div>
+        </div>
+        <div class="event-detail">
+          <div class="d-row"><span class="d-icon">🍜</span><span class="d-text"><strong>Option 1 —</strong> Bánh canh cá lóc Hoa Biển, 43 Nguyễn Bỉnh Khiêm. Nước dùng ngọt thanh, cá lóc đồng tươi.</span></div>
+          <div class="alt"><strong>Option 2 —</strong> Bún thịt nướng trên đường Trương Định. Nem nướng + bún + rau thơm, cực ngon.</div>
+          <div class="d-row"><span class="d-icon">💰</span><span class="d-text"><span class="price">~40–60k</span>/người</span></div>
+        </div>
+      </div>
+
+      <div class="event" onclick="toggle(this)">
+        <div class="event-trigger">
+          <div class="e-time">15:00</div>
+          <div class="e-body">
+            <div class="e-name">Biển Lăng Cô — tắm chiều & ngắm hoàng hôn</div>
+            <div class="e-tags"><span class="tag tag-a">Biển</span><span class="tag tag-a">Chill</span></div>
+          </div>
+          <div class="e-chevron">▾</div>
+        </div>
+        <div class="event-detail">
+          <div class="d-row"><span class="d-icon">🏖</span><span class="d-text">Lăng Cô cách Huế ~60km, bãi cát trắng đẹp, ít đông hơn Đà Nẵng.</span></div>
+          <div class="d-row"><span class="d-icon">💡</span><span class="d-text">Đi xe máy qua đèo Hải Vân — view biển cực đẹp. Đổ đầy xăng trước, đèo dài ~20km.</span></div>
+          <div class="d-row"><span class="d-icon">⚠️</span><span class="d-text">Dịp lễ đường đông, xuất phát sớm. Có thể ở lại Thuận An nếu không muốn đi xa.</span></div>
+          <div class="d-row"><span class="d-icon">💰</span><span class="d-text"><span class="price">~30k</span>phí đường + xăng</span></div>
+          <a class="map-link" href="https://maps.google.com/?q=Bien+Lang+Co+Hue" target="_blank">↗ Lăng Cô</a>
+          <a class="map-link" href="https://maps.google.com/?q=Deo+Hai+Van" target="_blank">↗ Đèo Hải Vân</a>
+        </div>
+      </div>
+
+      <div class="event" onclick="toggle(this)">
+        <div class="event-trigger">
+          <div class="e-time">19:30</div>
+          <div class="e-body">
+            <div class="e-name">Nhậu tối — Nem lụi Vĩ Dạ / Phố đi bộ</div>
+            <div class="e-tags"><span class="tag tag-f">Ăn tối</span><span class="tag tag-a">Nhậu</span></div>
+          </div>
+          <div class="e-chevron">▾</div>
+        </div>
+        <div class="event-detail">
+          <div class="d-row"><span class="d-icon">🔥</span><span class="d-text"><strong>Option 1 —</strong> Quán nhậu khu Vĩ Dạ. Nem lụi, thịt nướng, bánh ướt — ngon, rẻ, đậm chất Huế.</span></div>
+          <a class="map-link" href="https://maps.google.com/?q=Vi+Da+Hue" target="_blank">↗ Maps</a>
+          <div class="alt"><strong>Option 2 —</strong> Phố đi bộ Nguyễn Đình Chiểu. Bia hơi, lẩu ếch, đông vui hơn dịp lễ.</div>
+          <div class="d-row"><span class="d-icon">💰</span><span class="d-text"><span class="price">~150–250k</span>/người</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 2/5 -->
+  <section class="day">
+    <div class="day-rule">
+      <div class="day-date">2/5</div>
+      <div class="day-subtitle">Trả phòng — di chuyển Đà Nẵng</div>
+      <span class="day-tag danang">Đà Nẵng</span>
+    </div>
+    <div class="events">
+
+      <div class="event" onclick="toggle(this)">
+        <div class="event-trigger">
+          <div class="e-time">7:00</div>
+          <div class="e-body">
+            <div class="e-name">Ăn sáng cuối ở Huế — Cháo lươn / Bánh bèo</div>
+            <div class="e-tags"><span class="tag tag-f">Ăn sáng</span><span class="tag tag-f">Đặc sản</span></div>
+          </div>
+          <div class="e-chevron">▾</div>
+        </div>
+        <div class="event-detail">
+          <div class="d-row"><span class="d-icon">🍲</span><span class="d-text"><strong>Option 1 —</strong> Cháo lươn Huế, khu Trường An. Lươn đồng um nghệ, cháo đặc sánh.</span></div>
+          <div class="alt"><strong>Option 2 —</strong> Combo bánh Huế (bánh bèo, bánh nậm, bánh lọc) tại Quán Hẻm, đường Chi Lăng.</div>
+          <div class="d-row"><span class="d-icon">💰</span><span class="d-text"><span class="price">~40–60k</span>/người</span></div>
+        </div>
+      </div>
+
+      <div class="event" onclick="toggle(this)">
+        <div class="event-trigger">
+          <div class="e-time">9:30</div>
+          <div class="e-body">
+            <div class="e-name">Trả phòng — xe thuê riêng đi Đà Nẵng</div>
+            <div class="e-tags"><span class="tag tag-m">Di chuyển</span><span class="tag tag-s">Check-out</span></div>
+          </div>
+          <div class="e-chevron">▾</div>
+        </div>
+        <div class="event-detail">
+          <div class="d-row"><span class="d-icon">🚗</span><span class="d-text">Xe 7 chỗ Huế–Đà Nẵng ~700k–1tr/xe (~140–200k/người). Chặng ~100km, đi ~2–2.5 tiếng.</span></div>
+          <div class="d-row"><span class="d-icon">💡</span><span class="d-text">Đặt xe sớm — dịp lễ khan hiếm và giá tăng. Yêu cầu tài xế dừng chụp ảnh đỉnh đèo Hải Vân.</span></div>
+          <div class="d-row"><span class="d-icon">💰</span><span class="d-text"><span class="price">~140–200k</span>/người</span></div>
+          <a class="map-link" href="https://maps.google.com/?q=Deo+Hai+Van" target="_blank">↗ Đèo Hải Vân</a>
+        </div>
+      </div>
+
+      <div class="event" onclick="toggle(this)">
+        <div class="event-trigger">
+          <div class="e-time">12:30</div>
+          <div class="e-body">
+            <div class="e-name">Đến Đà Nẵng — ăn trưa, check-in Royal Beach Hotel</div>
+            <div class="e-tags"><span class="tag tag-f">Ăn trưa</span><span class="tag tag-s">Check-in</span></div>
+          </div>
+          <div class="e-chevron">▾</div>
+        </div>
+        <div class="event-detail">
+          <div class="d-row"><span class="d-icon">🦞</span><span class="d-text"><strong>Option 1 —</strong> Mì Quảng Bà Mua, 19/K Trưng Nữ Vương. Quán nổi tiếng, chuẩn vị Đà Nẵng.</span></div>
+          <a class="map-link" href="https://maps.google.com/?q=Mi+Quang+Ba+Mua+Da+Nang" target="_blank">↗ Maps</a>
+          <div class="alt"><strong>Option 2 —</strong> Bún chả cá bà Hồng, 109 Nguyễn Chí Thanh. Cá chiên thơm, nước dùng trong.</div>
+          <div class="d-row"><span class="d-icon">💰</span><span class="d-text"><span class="price">~40–60k</span>/người</span></div>
+        </div>
+      </div>
+
+      <div class="event" onclick="toggle(this)">
+        <div class="event-trigger">
+          <div class="e-time">15:00</div>
+          <div class="e-body">
+            <div class="e-name">Tắm biển Mỹ Khê — chill buổi chiều</div>
+            <div class="e-tags"><span class="tag tag-a">Biển</span><span class="tag tag-a">Chill</span></div>
+          </div>
+          <div class="e-chevron">▾</div>
+        </div>
+        <div class="event-detail">
+          <div class="d-row"><span class="d-icon">🏖</span><span class="d-text">Bãi Mỹ Khê sát khách sạn. Bãi cát đẹp, nước trong. Chiều tắm mát rồi ngồi ngắm hoàng hôn.</span></div>
+          <div class="d-row"><span class="d-icon">💡</span><span class="d-text">Dịp lễ bãi đông. Đi tầm 15–16h sẽ đỡ nắng và ít đông hơn buổi sáng.</span></div>
+          <div class="d-row"><span class="d-icon">💰</span><span class="d-text"><span class="price">Miễn phí</span>vào biển</span></div>
+          <a class="map-link" href="https://maps.google.com/?q=Bien+My+Khe+Da+Nang" target="_blank">↗ Google Maps</a>
+        </div>
+      </div>
+
+      <div class="event" onclick="toggle(this)">
+        <div class="event-trigger">
+          <div class="e-time">19:00</div>
+          <div class="e-body">
+            <div class="e-name">Nhậu tối — Hải sản Mỹ Khê</div>
+            <div class="e-tags"><span class="tag tag-f">Ăn tối</span><span class="tag tag-a">Nhậu</span></div>
+          </div>
+          <div class="e-chevron">▾</div>
+        </div>
+        <div class="event-detail">
+          <div class="d-row"><span class="d-icon">🦐</span><span class="d-text"><strong>Option 1 —</strong> Chợ hải sản Mỹ Khê, Võ Nguyên Giáp. Tự chọn hải sản tươi, đưa sang quán kế chế biến. Hỏi giá trước.</span></div>
+          <a class="map-link" href="https://maps.google.com/?q=Cho+hai+san+My+Khe+Da+Nang" target="_blank">↗ Maps</a>
+          <div class="alt"><strong>Option 2 —</strong> Quán Trà Vinh, 52 Trần Phú. Dân địa phương hay lui tới, hải sản tươi, giá hợp lý.</div>
+          <div class="d-row"><span class="d-icon">💰</span><span class="d-text"><span class="price">~200–350k</span>/người</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 3/5 -->
+  <section class="day">
+    <div class="day-rule">
+      <div class="day-date">3/5</div>
+      <div class="day-subtitle">Bay về Hà Nội</div>
+      <span class="day-tag fly">Bay về</span>
+    </div>
+    <div class="events">
+
+      <div class="event" onclick="toggle(this)">
+        <div class="event-trigger">
+          <div class="e-time">7:00</div>
+          <div class="e-body">
+            <div class="e-name">Ăn sáng nhanh — Bánh mì Đà Nẵng</div>
+            <div class="e-tags"><span class="tag tag-f">Ăn sáng</span></div>
+          </div>
+          <div class="e-chevron">▾</div>
+        </div>
+        <div class="event-detail">
+          <div class="d-row"><span class="d-icon">🥖</span><span class="d-text">Bánh mì thịt nướng gần khách sạn, ~20–30k/ổ. Thu dọn hành lý từ tối hôm trước.</span></div>
+        </div>
+      </div>
+
+      <div class="event" onclick="toggle(this)">
+        <div class="event-trigger">
+          <div class="e-time">8:30</div>
+          <div class="e-body">
+            <div class="e-name">Ra sân bay — chuyến bay 10:00 về Hà Nội</div>
+            <div class="e-tags"><span class="tag tag-m">Bay về</span></div>
+          </div>
+          <div class="e-chevron">▾</div>
+        </div>
+        <div class="event-detail">
+          <div class="d-row"><span class="d-icon">✈️</span><span class="d-text">Sân bay Đà Nẵng cách trung tâm ~5km, grab ~50–80k. Ra sớm ~1.5 tiếng dịp lễ đông.</span></div>
+          <a class="map-link" href="https://maps.google.com/?q=San+bay+quoc+te+Da+Nang" target="_blank">↗ Google Maps</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Ae Lươn · Huế – Đà Nẵng · 30/4/2025
+</footer>
+
+<script>
+function toggle(el) {
+  el.classList.toggle('open');
+  const d = el.querySelector('.event-detail');
+  if (d) d.style.display = el.classList.contains('open') ? 'block' : 'none';
+}
+</script>
+
+</body>
+</html>
